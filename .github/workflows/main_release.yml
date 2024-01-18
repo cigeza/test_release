@@ -13,4 +13,4 @@ jobs:
           url: https://portal.proofivy.com/test_release
           method: 'POST'
           customHeaders: '{"Content-Type": "application/json"}'
-          data: '{"api_key": "${{ secrets.api_key }}", "release_version": "${{ github.ref }}"}'
+          data: '{"api_key": "${{ secrets.PROOFIVY_API_KEY }}", "release_version": "${{ github.ref }}"}'
