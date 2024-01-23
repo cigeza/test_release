@@ -711,7 +711,7 @@ w3 = web3.Web3(web3.HTTPProvider(WEB3_RPC_ENDPOINT))
 proofivy_abi = json.loads(proofivy_abi_json)
 proofivy_contract = w3.eth.contract(address=PROOFIVY_ADDRESS, abi=proofivy_abi)
 txn_dict = proofivy_contract.functions.guild_commit(guild, hash_string
-                                                    ).build_transaction({'chainId': CHAIN_ID, 'gas': 0})
+                                                    ).build_transaction({'chainId': CHAIN_ID, 'gas': 0, 'nonce': 0})
 # Create Gnosis Safe transaction
 safe_eth_client = EthereumClient(WEB3_RPC_ENDPOINT)
 safe = Safe(GNOSIS_ADDRESS, safe_eth_client)
