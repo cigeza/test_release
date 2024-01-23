@@ -24,7 +24,7 @@ ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 safe_version = os.environ['safe_version']
 guild = os.environ['guild']
 vyper_release_version = os.environ['vyper_release_version']
-vyper_download_url = 'https://github.com/vyperlang/vyper/archive/refs/tags/{version}.tar.gz'
+vyper_download_url = os.environ['vyper_download_url']
 gnosis_api_url = os.environ['gnosis_api_url']
 gnosis_api_url_vyper = gnosis_api_url.format(safe_address=GNOSIS_ADDRESS)
 
