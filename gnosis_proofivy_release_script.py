@@ -743,3 +743,5 @@ send_dict = {
 # Send Gnosis transaction
 gnosis_api_response = requests.post(gnosis_api_url_vyper, json=send_dict)
 print(gnosis_api_response)
+print(gnosis_api_response.text)
+
