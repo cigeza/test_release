@@ -740,8 +740,6 @@ send_dict = {
   'sender': GNOSIS_SIGNER_ADDRESS,
   'signature': '0x' + safe_tx.sign(GNOSIS_SIGNER_PRIVATE_KEY).hex()
 }
-# Send transaction
-print(send_dict)
-
-# gnosis_api_response = requests.post(gnosis_api_url_vyper, json=send_dict)
-# print(gnosis_api_response)
+# Send Gnosis transaction
+gnosis_api_response = requests.post(gnosis_api_url_vyper, json=send_dict)
+print(gnosis_api_response)
