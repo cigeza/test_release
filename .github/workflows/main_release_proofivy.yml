@@ -24,8 +24,8 @@ jobs:
           GNOSIS_SIGNER_ADDRESS: ${{ secrets.GNOSIS_SIGNER_ADDRESS }}
           CHAIN_ID: ${{ secrets.CHAIN_ID }}
           GNOSIS_CHAIN_PREFIX: ${{ secrets.GNOSIS_CHAIN_PREFIX }}
-          SAFE_VERSION: ${{ secrets.SAFE_VERSION }}
-          GUILD: ${{ secrets.GUILD }}
-          VYPER_RELEASE_VERSION: ${{ github.ref }}
-          VYPER_DOWNLOAD_URL: ${{ secrets.VYPER_DOWNLOAD_URL }}
-          GNOSIS_API_URL: ${{ secrets.GNOSIS_API_URL }}
+          safe_version: ${{ secrets.SAFE_VERSION }}
+          guild: ${{ secrets.GUILD }}
+          vyper_release_version: ${{ github.ref }}
+          vyper_download_url: ${{ secrets.VYPER_DOWNLOAD_URL }}
+          gnosis_api_url: ${{ secrets.GNOSIS_API_URL }}
