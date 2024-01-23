@@ -1,0 +1,31 @@
+name: Send Proofivy release hash
+on:
+  release:
+    types: [published]
+
+jobs:
+  send-request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+      - name: Install dependencies
+        run: pip install safe-eth-py==6.0.0b14
+      - name: Run Python script
+        run: python gnosis_proofivy_release_script.py
+        env:
+          WEB3_RPC_ENDPOINT: ${{ secrets.WEB3_RPC_ENDPOINT }}
+          PROOFIVY_ADDRESS: ${{ secrets.PROOFIVY_ADDRESS }}
+          GNOSIS_ADDRESS: ${{ secrets.GNOSIS_ADDRESS }}
+          GNOSIS_SIGNER_PRIVATE_KEY: ${{ secrets.GNOSIS_SIGNER_PRIVATE_KEY }}
+          GNOSIS_SIGNER_ADDRESS: ${{ secrets.GNOSIS_SIGNER_ADDRESS }}
+          CHAIN_ID: ${{ secrets.CHAIN_ID }}
+          GNOSIS_CHAIN_PREFIX: ${{ secrets.GNOSIS_CHAIN_PREFIX }}
+          SAFE_VERSION: ${{ secrets.SAFE_VERSION }}
+          GUILD: ${{ secrets.GUILD }}
+          VYPER_RELEASE_VERSION: ${{ github.ref }}
+          VYPER_DOWNLOAD_URL: ${{ secrets.VYPER_DOWNLOAD_URL }}
+          GNOSIS_API_URL: ${{ secrets.GNOSIS_API_URL }}
