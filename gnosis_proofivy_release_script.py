@@ -45,6 +45,8 @@ CID_PREFIX_SHA256 = b"".join(
     ],
 )
 
+# Proofivy ABI
+# https://optimistic.etherscan.io/address/0xcc26e45546dcb8d747c2bb69e348f0515ef3efc5#code
 proofivy_abi_json = """[
     {
       "anonymous": false,
