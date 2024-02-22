@@ -46,7 +46,7 @@ CID_PREFIX_SHA256 = b"".join(
 )
 
 # Proofivy ABI
-# https://optimistic.etherscan.io/address/0xcc26e45546dcb8d747c2bb69e348f0515ef3efc5#code
+# https://optimistic.etherscan.io/address/0x7fe3ee287cf0ba7c1f19dd50fe7564ea7898ac55#code
 proofivy_abi_json = """[
     {
       "anonymous": false,
@@ -63,7 +63,7 @@ proofivy_abi_json = """[
         },
         {
           "indexed": false,
-          "name": "commit_count",
+          "name": "public_commit_count",
           "type": "uint256"
         }
       ],
@@ -96,12 +96,158 @@ proofivy_abi_json = """[
       "anonymous": false,
       "inputs": [
         {
+          "indexed": true,
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "hash",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "signed_public_commit_count",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "SignedPublicCommit",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "message",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "signed_public_message_count",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "SignedPublicMessage",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
           "indexed": false,
           "name": "guild",
           "type": "string"
         }
       ],
-      "name": "GuildFounded",
+      "name": "FoundGuild",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "guild",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "name": "admin",
+          "type": "address"
+        }
+      ],
+      "name": "AddGuildAdmin",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "guild",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "name": "admin",
+          "type": "address"
+        }
+      ],
+      "name": "RemoveGuildAdmin",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "guild",
+          "type": "string"
+        }
+      ],
+      "name": "AspireGuildMembership",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "guild",
+          "type": "string"
+        }
+      ],
+      "name": "RemoveAspiringGuildMembership",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "guild",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "name": "member",
+          "type": "address"
+        }
+      ],
+      "name": "AddGuildMember",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "guild",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "name": "member",
+          "type": "address"
+        }
+      ],
+      "name": "RemoveGuildMember",
       "type": "event"
     },
     {
@@ -128,7 +274,7 @@ proofivy_abi_json = """[
           "type": "uint256"
         }
       ],
-      "name": "GuildMemberCommit",
+      "name": "GuildCommit",
       "type": "event"
     },
     {
@@ -155,7 +301,71 @@ proofivy_abi_json = """[
           "type": "uint256"
         }
       ],
-      "name": "GuildMemberMessage",
+      "name": "GuildMessage",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "guild",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "hash",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "signed_guild_commit_count",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "SignedGuildCommit",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "guild",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "message",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "signed_guild_message_count",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "SignedGuildMessage",
       "type": "event"
     },
     {
@@ -210,8 +420,7 @@ proofivy_abi_json = """[
       "name": "public_commit",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function",
-      "payable": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -223,8 +432,39 @@ proofivy_abi_json = """[
       "name": "public_message",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function",
-      "payable": true
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "hash",
+          "type": "string"
+        },
+        {
+          "name": "signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "signed_public_commit",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "message",
+          "type": "string"
+        },
+        {
+          "name": "signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "signed_public_message",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
     },
     {
       "inputs": [
@@ -253,7 +493,7 @@ proofivy_abi_json = """[
           "type": "address"
         }
       ],
-      "name": "add_admin",
+      "name": "add_guild_admin",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -269,7 +509,7 @@ proofivy_abi_json = """[
           "type": "address"
         }
       ],
-      "name": "remove_admin",
+      "name": "remove_guild_admin",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -281,7 +521,7 @@ proofivy_abi_json = """[
           "type": "string"
         }
       ],
-      "name": "aspire_membership",
+      "name": "aspire_guild_membership",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -293,23 +533,7 @@ proofivy_abi_json = """[
           "type": "string"
         }
       ],
-      "name": "remove_aspiring_membership",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "guild",
-          "type": "string"
-        },
-        {
-          "name": "member",
-          "type": "address"
-        }
-      ],
-      "name": "add_member",
+      "name": "remove_aspiring_guild_membership",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -325,7 +549,23 @@ proofivy_abi_json = """[
           "type": "address"
         }
       ],
-      "name": "remove_member",
+      "name": "add_guild_member",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "guild",
+          "type": "string"
+        },
+        {
+          "name": "member",
+          "type": "address"
+        }
+      ],
+      "name": "remove_guild_member",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -363,6 +603,46 @@ proofivy_abi_json = """[
       "type": "function"
     },
     {
+      "inputs": [
+        {
+          "name": "guild",
+          "type": "string"
+        },
+        {
+          "name": "hash",
+          "type": "string"
+        },
+        {
+          "name": "signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "signed_guild_commit",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "guild",
+          "type": "string"
+        },
+        {
+          "name": "message",
+          "type": "string"
+        },
+        {
+          "name": "signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "signed_guild_message",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "public_commit_price",
       "outputs": [
@@ -372,8 +652,7 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -385,8 +664,7 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -398,8 +676,7 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -416,8 +693,7 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -434,8 +710,7 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -447,8 +722,7 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -465,8 +739,7 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -483,8 +756,133 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "signed_public_commit_counter",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "uint256"
+        }
+      ],
+      "name": "signed_public_commit_senders",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "uint256"
+        }
+      ],
+      "name": "signed_public_commits",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "uint256"
+        }
+      ],
+      "name": "signed_public_commit_signatures",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "signed_public_message_counter",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "uint256"
+        }
+      ],
+      "name": "signed_public_message_senders",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "uint256"
+        }
+      ],
+      "name": "signed_public_messages",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "uint256"
+        }
+      ],
+      "name": "signed_public_message_signatures",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
     },
     {
       "inputs": [
@@ -501,8 +899,7 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -523,8 +920,7 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -545,8 +941,7 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -567,8 +962,7 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -585,8 +979,7 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -607,8 +1000,7 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -629,8 +1021,7 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -647,8 +1038,7 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -669,8 +1059,7 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -691,8 +1080,167 @@ proofivy_abi_json = """[
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "string"
+        }
+      ],
+      "name": "signed_guild_commit_counter",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "string"
+        },
+        {
+          "name": "arg1",
+          "type": "uint256"
+        }
+      ],
+      "name": "signed_guild_commit_senders",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "string"
+        },
+        {
+          "name": "arg1",
+          "type": "uint256"
+        }
+      ],
+      "name": "signed_guild_commits",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "string"
+        },
+        {
+          "name": "arg1",
+          "type": "uint256"
+        }
+      ],
+      "name": "signed_guild_commit_signatures",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "string"
+        }
+      ],
+      "name": "signed_guild_message_counter",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "string"
+        },
+        {
+          "name": "arg1",
+          "type": "uint256"
+        }
+      ],
+      "name": "signed_guild_message_senders",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "string"
+        },
+        {
+          "name": "arg1",
+          "type": "uint256"
+        }
+      ],
+      "name": "signed_guild_messages",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "string"
+        },
+        {
+          "name": "arg1",
+          "type": "uint256"
+        }
+      ],
+      "name": "signed_guild_message_signatures",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
     }
 ]"""
 
